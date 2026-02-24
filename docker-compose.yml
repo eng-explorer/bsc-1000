@@ -1,0 +1,61 @@
+# BSC-1000 — BACnet Controller
+# Documentation: https://github.com/eng-explorer/bsc-1000
+#
+# Quick start:
+#   1. Copy .env.example to .env and adjust settings
+#   2. docker compose up -d
+#   3. Open https://<host-ip> in your browser
+#
+# For Linux SBCs with physical I/O (Raspberry Pi, R1125, etc.),
+# uncomment the cap_add, devices, and BOARD_MODEL sections below.
+
+services:
+  bacsync-controller:
+    image: ghcr.io/eng-explorer/bsc-1000:latest
+    container_name: bacsync-controller
+    restart: unless-stopped
+    network_mode: host
+    environment:
+      - BACNET_PORT=${BACNET_PORT:-47808}
+      - DEVICE_INSTANCE=${DEVICE_INSTANCE:-999001}
+      - DEVICE_NAME=${DEVICE_NAME:-BACsync Controller}
+      - TLS_ENABLED=true
+      # Network interface (uncomment if multiple NICs)
+      #- ETH_INTERFACE=eth0
+      # SSH management console (port 2222)
+      #- SSH_ENABLED=true
+      #- SSH_PORT=2222
+      # MCP integration server
+      #- MCP_ENABLED=true
+      # MS/TP RS-485 (uncomment + add device mapping below)
+      #- MSTP_ENABLED=true
+      #- MSTP_SERIAL_PORT=/dev/ttyACM1
+      #- MSTP_BAUDRATE=38400
+      #- MSTP_MAC_ADDRESS=1
+      # SBC board model (auto-detected if omitted)
+      #- BOARD_MODEL=reComputer-R1125
+    volumes:
+      - controller-data:/app/data
+      - ./programs:/app/programs/user
+      # GPIO access for Linux SBCs (uncomment with cap_add below)
+      #- /sys:/sys
+    # Uncomment for Linux SBCs with GPIO and serial I/O
+    #cap_add:
+    #  - NET_ADMIN
+    #  - SYS_RAWIO
+    # Serial devices for Modbus RTU / MS/TP (uncomment as needed)
+    #devices:
+    #  - /dev/ttyACM0:/dev/ttyACM0    # Modbus RTU RS-485
+    #  - /dev/ttyACM1:/dev/ttyACM1    # MS/TP RS-485
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  controller-data:
