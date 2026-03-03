@@ -284,6 +284,25 @@ The BSC-1000 has been tested against a comprehensive conformance test suite cove
 - Edge case validation: NaN/Inf rejection, integer clamping, out-of-range protection
 - 20 concurrent SCADA client connections with zero data loss
 
+## Verifying Downloads
+
+### Appliance Images
+
+Each release includes a `SHA256SUMS.txt` file. After downloading, verify the integrity:
+
+```bash
+sha256sum -c SHA256SUMS.txt
+```
+
+### Docker Images
+
+Docker images are signed with [cosign](https://github.com/sigstore/cosign). To verify:
+
+```bash
+cosign verify --key https://raw.githubusercontent.com/eng-explorer/bsc-1000/main/cosign.pub \
+  ghcr.io/eng-explorer/bacsync-controller:latest
+```
+
 ## Documentation
 
 - [Deployment Guide](#) — Installation, configuration, networking
