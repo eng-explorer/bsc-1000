@@ -90,9 +90,9 @@ It runs as a pre-built virtual appliance — import it into your hypervisor, pow
 
 | Format | Platform | Size | Link |
 |--------|----------|------|------|
-| **OVA** | VMware ESXi, vSphere, VirtualBox | ~900 MB | [Download OVA](https://github.com/eng-explorer/bsc-1000/releases/latest/download/bacsync-controller.ova) |
-| **VHD** | Microsoft Hyper-V | ~870 MB | [Download VHD.gz](https://github.com/eng-explorer/bsc-1000/releases/latest/download/bacsync-controller.vhd.gz) |
-| **qcow2** | Proxmox VE, KVM, libvirt | ~950 MB | [Download qcow2](https://github.com/eng-explorer/bsc-1000/releases/latest/download/bacsync-controller.qcow2) |
+| **OVA** | VMware ESXi, vSphere, VirtualBox | ~900 MB | [Download OVA](https://github.com/humber-horizons-limited/bsc-1000/releases/latest/download/bacsync-controller.ova) |
+| **VHD** | Microsoft Hyper-V | ~870 MB | [Download VHD.gz](https://github.com/humber-horizons-limited/bsc-1000/releases/latest/download/bacsync-controller.vhd.gz) |
+| **qcow2** | Proxmox VE, KVM, libvirt | ~950 MB | [Download qcow2](https://github.com/humber-horizons-limited/bsc-1000/releases/latest/download/bacsync-controller.qcow2) |
 | **Docker** | Raspberry Pi, Linux SBC, any Linux | `docker pull` | See [Docker instructions](#docker) |
 
 ## Quick Start
@@ -151,7 +151,7 @@ docker run -d \
   --network host \
   -v bacsync-data:/app/data \
   -v bacsync-programs:/app/programs/user \
-  ghcr.io/eng-explorer/bsc-1000:latest
+  ghcr.io/humber-horizons-limited/bsc-1000:latest
 ```
 
 Access the Web UI at `https://<host-ip>`.
@@ -183,7 +183,7 @@ docker run -d \
   -v /sys:/sys \
   --device /dev/ttyACM0 \
   --device /dev/ttyACM1 \
-  ghcr.io/eng-explorer/bsc-1000:latest-arm64
+  ghcr.io/humber-horizons-limited/bsc-1000:latest-arm64
 ```
 
 GPIO, I2C, and serial devices are auto-detected. Map the serial ports your hardware uses (e.g. `/dev/ttyACM0` for Modbus RTU, `/dev/ttyACM1` for MS/TP).
@@ -306,10 +306,10 @@ sha256sum -c SHA256SUMS.txt
 Docker images are signed with [cosign](https://github.com/sigstore/cosign). To verify:
 
 ```bash
-cosign verify --key https://raw.githubusercontent.com/eng-explorer/bsc-1000/main/cosign.pub \
-  ghcr.io/eng-explorer/bsc-1000:latest        # x86_64
-cosign verify --key https://raw.githubusercontent.com/eng-explorer/bsc-1000/main/cosign.pub \
-  ghcr.io/eng-explorer/bsc-1000:latest-arm64   # ARM64
+cosign verify --key https://raw.githubusercontent.com/humber-horizons-limited/bsc-1000/main/cosign.pub \
+  ghcr.io/humber-horizons-limited/bsc-1000:latest        # x86_64
+cosign verify --key https://raw.githubusercontent.com/humber-horizons-limited/bsc-1000/main/cosign.pub \
+  ghcr.io/humber-horizons-limited/bsc-1000:latest-arm64   # ARM64
 ```
 
 ## Documentation
