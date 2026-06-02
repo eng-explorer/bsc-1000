@@ -15,6 +15,11 @@ services:
     container_name: bacsync-controller
     restart: unless-stopped
     network_mode: host
+    # Prevent setuid/setgid binaries from elevating capabilities inside
+    # the container. Defense-in-depth against any future RCE bug —
+    # nothing the controller runs relies on setuid bits.
+    security_opt:
+      - no-new-privileges:true
     environment:
       - BACNET_PORT=${BACNET_PORT:-47808}
       - DEVICE_INSTANCE=${DEVICE_INSTANCE:-999001}
