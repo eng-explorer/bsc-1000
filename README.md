@@ -109,12 +109,16 @@ It runs as a pre-built virtual appliance — import it into your hypervisor, pow
 
 ### Microsoft Hyper-V (VHD)
 
-1. Download `bacsync-controller.vhd`
-2. **Hyper-V Manager → New → Virtual Machine**
-3. Select Generation 1, allocate 2048 MB memory
-4. Connect to an **External** virtual switch
-5. Choose **Use an existing virtual hard disk** → browse to the VHD
-6. Start the VM and browse to `https://<vm-ip>`
+1. Download `bacsync-controller.vhd.gz`
+2. **Extract the gzip:**
+   - PowerShell: `Expand-Archive -Path bacsync-controller.vhd.gz -DestinationPath .` *— or use* `7-Zip` *(right-click → Extract here)*
+   - WSL / Git Bash: `gunzip bacsync-controller.vhd.gz`
+   - Result: `bacsync-controller.vhd` (~2.5 GB uncompressed)
+3. **Hyper-V Manager → New → Virtual Machine**
+4. Select Generation 1, allocate 2048 MB memory
+5. Connect to an **External** virtual switch
+6. Choose **Use an existing virtual hard disk** → browse to the extracted `.vhd`
+7. Start the VM and browse to `https://<vm-ip>`
 
 ### Proxmox VE (qcow2)
 
