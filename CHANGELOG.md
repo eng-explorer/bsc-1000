@@ -49,7 +49,7 @@ This format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), an
 - **BSC-IO** stability: trend sync resumes correctly across board migration and removal; programs report status accurately; long-session stability improvements.
 - **BSC-IO OTA**: chunked-transfer correctness at boundary sizes; reconnect-during-board-reboot timing handled cleanly.
 - **Console log viewer**: live capture works reliably; cursor reset on view.
-- **Isometric graphic editor**: editor stability fixes across selection, drag, undo, and component connection.
+- **Graphics editor**: comprehensive stability pass across the new graphics subsystem. New Graphic / template picker, isometric save, viewer-token management, selector-write actions, imported graphics, and background image upload all hardened. Real-time updates are more efficient on graphics with many sparkline widgets, and the live-update channel survives idle disconnects cleanly.
 - **Programs UI**: card-button interactions corrected.
 - **App Builder reliability**: improved transient-failure recovery across drivers.
 
