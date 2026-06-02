@@ -146,17 +146,21 @@ It runs as a pre-built virtual appliance — import it into your hypervisor, pow
 ### Docker
 
 ```bash
+mkdir -p programs
 docker run -d \
   --name bacsync-controller \
   --network host \
-  -v bacsync-data:/app/data \
-  -v bacsync-programs:/app/programs/user \
+  --security-opt no-new-privileges:true \
+  -v controller-data:/app/data \
+  -v "$(pwd)/programs:/app/programs/user" \
   ghcr.io/humber-horizons-limited/bsc-1000:latest
 ```
 
 Access the Web UI at `https://<host-ip>`.
 
 > **Note:** `--network host` is required for BACnet/IP UDP broadcast communication.
+>
+> **Important:** the volume names above (`controller-data`, plus the local `./programs` bind-mount) match `docker-compose.yml`. If you later switch to compose, your data and programs carry over with no migration step.
 
 ### Docker Compose
 
@@ -174,19 +178,22 @@ The compose file includes commented-out sections for serial devices (Modbus RTU,
 Use the ARM64 image:
 
 ```bash
+mkdir -p programs
 docker run -d \
   --name bacsync-controller \
   --network host \
+  --security-opt no-new-privileges:true \
   --cap-add NET_ADMIN \
   --cap-add SYS_RAWIO \
-  -v bacsync-data:/app/data \
+  -v controller-data:/app/data \
+  -v "$(pwd)/programs:/app/programs/user" \
   -v /sys:/sys \
   --device /dev/ttyACM0 \
   --device /dev/ttyACM1 \
   ghcr.io/humber-horizons-limited/bsc-1000:latest-arm64
 ```
 
-GPIO, I2C, and serial devices are auto-detected. Map the serial ports your hardware uses (e.g. `/dev/ttyACM0` for Modbus RTU, `/dev/ttyACM1` for MS/TP).
+GPIO, I2C, and serial devices are auto-detected. Map the serial ports your hardware uses (e.g. `/dev/ttyACM0` for Modbus RTU, `/dev/ttyACM1` for MS/TP). Volume names match `docker-compose.yml` so you can switch to compose later without data migration.
 
 ### Updating
 
