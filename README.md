@@ -19,19 +19,19 @@ It runs as a pre-built virtual appliance — import it into your hypervisor, pow
 
 **BACnet/IP Controller**
 - 228/228 BACnet conformance tests passed (Protocol Revision 22)
-- 11 object types: AI, AO, AV, BI, BO, BV, MSV, TrendLog, Schedule, Calendar, NotificationClass
-- 27 BACnet services including ReadPropertyMultiple, SubscribeCOV, ReadRange
+- 12 object types: AI, AO, AV, BI, BO, BV, MSV, TrendLog, Schedule, Calendar, NotificationClass, StructuredView
+- Comprehensive BACnet service coverage including ReadPropertyMultiple, SubscribeCOV, ReadRange
 - Full 16-level priority arrays on commandable outputs
 - Segmentation support (tested with 1,040+ objects in single response)
 - BBMD with broadcast distribution and foreign device registration
-- Tested with 20,000 objects on 1 GB RAM
+- Tested with 30,000+ objects on modest RAM
 
 **Python Control Programming**
 - Write control logic in Python — not proprietary function blocks
-- 18 built-in HVAC classes: PID, Deadband, LeadLag, Economizer, FreezeProtect, StagingController, OptimalStart, and more
-- 23 program templates: AHU, VAV, Boiler Plant, Chiller Plant, Zone Control, Pump Lead-Lag, and more
-- BAS program converter — import from PPCL, Plain English, GCL+, Control Basic, and XML exports
-- Program linter with 11 rules for HVAC safety and best practices
+- 19 built-in HVAC classes: PID, Deadband, LeadLag, Economizer, FreezeProtect, StagingController, OptimalStart, and more
+- Broad library of equipment program templates: AHU, VAV, Boiler Plant, Chiller Plant, Zone Control, Pump Lead-Lag, and more
+- BAS program converter — import from common legacy BAS source formats
+- Program linter for HVAC safety and best practices
 - Code editor with syntax highlighting, hot-reload, sandboxed execution
 
 **Trend Logging, Scheduling & Alarms**
@@ -48,18 +48,20 @@ It runs as a pre-built virtual appliance — import it into your hypervisor, pow
 - Dead-connection detection with configurable timeout sweep
 
 **Multi-Protocol Integration**
-- App Builder bridges 6 protocols to BACnet objects: BACnet/IP, Modbus TCP, Modbus RTU, MQTT, HTTP/REST, OPC UA
-- Built-in OPC UA server — all BACnet objects browsable from any SCADA system (read-only in Community, read+write in Professional). Tested with industry-standard SCADA platforms
+- App Builder bridges 8 protocols to BACnet objects: BACnet/IP, Modbus TCP, Modbus RTU, MQTT, HTTP/REST, OPC UA, EtherNet/IP, SNMP
+- Built-in OPC UA server — all BACnet objects browsable from industry-standard SCADA systems (read-only in Community, read+write in Professional)
 - Modbus RTU serial master with RS-485 support, multi-slave addressing, float32 decoding, and per-point scaling
-- OPC UA client driver with subscription-based reads, security policies (Basic256Sha256), and authentication
-- Built-in Modbus TCP slave (FC 01/03/05/06/0F/10) with register mapping (Professional)
-- Built-in MQTT bridge with bidirectional pub/sub, TLS, QoS 0/1/2 (Professional)
-- Auto-discovery tools for all 6 protocols — scan networks, browse OPC UA servers, probe serial buses
+- OPC UA client driver with subscription-based reads, security policies, and authentication
+- Built-in Modbus TCP slave with register mapping (Professional)
+- Built-in MQTT bridge with bidirectional pub/sub, TLS, multi-QoS (Professional)
+- EtherNet/IP (CIP) driver for tag access on modern PLCs and file-element access on legacy controllers
+- SNMP driver (v1/v2c/v3) for UPSes, switches, and IT infrastructure monitors
+- Auto-discovery tools — scan networks, browse OPC UA servers, probe serial buses
 - Community Edition includes 1 app with 10 proxy points
 
 **Physical I/O** (Linux Single-Board Computers)
 - Hardware abstraction layer auto-detects GPIO, I2C, and serial devices
-- Runs on Raspberry Pi, BeagleBone, and other ARM/x86 Linux SBCs
+- Runs on common ARM/x86 Linux SBCs
 - Same software image as the virtual appliance
 
 **Security & Authentication**
@@ -72,18 +74,19 @@ It runs as a pre-built virtual appliance — import it into your hypervisor, pow
 
 **Graphics & Visualization**
 - SVG equipment graphics with live BACnet point binding
-- 8 pre-built HVAC templates: AHU, VAV, Boiler, Chiller, Unit Heater, Cooling Tower, Pump, Zone
+- Pre-built HVAC equipment templates: AHU, VAV, Boiler, Chiller, Unit Heater, Cooling Tower, Pump, Zone, and more
+- Canvas-based editor with isometric 3D mode and custom symbol library
 - Viewer tokens for unauthenticated public displays (lobby screens, customer portals)
 
 **Web UI, API & Management**
 - Modern dark-theme dashboard with real-time status
 - Object management, program editor, trend charts, alarm viewer
-- 35+ REST API endpoints
+- Comprehensive REST API
 - SSH management console (port 2222) with interactive CLI, tab completion, context help, and command history
   - Browse objects, write values, manage trends, schedules, programs, alarms, BBMD, users, and network
   - Built-in network diagnostics: ping, traceroute, port check
   - Color-coded output with hierarchical command structure
-- MCP (Model Context Protocol) server with 37 integration tools
+- MCP (Model Context Protocol) integration server with extensive tool coverage
 - Semantic tags for equipment classification and cross-controller discovery
 
 ## Download
@@ -93,7 +96,7 @@ It runs as a pre-built virtual appliance — import it into your hypervisor, pow
 | **OVA** | VMware ESXi, vSphere, VirtualBox | ~900 MB | [Download OVA](https://github.com/humber-horizons-limited/bsc-1000/releases/latest/download/bacsync-controller.ova) |
 | **VHD** | Microsoft Hyper-V | ~870 MB | [Download VHD.gz](https://github.com/humber-horizons-limited/bsc-1000/releases/latest/download/bacsync-controller.vhd.gz) |
 | **qcow2** | Proxmox VE, KVM, libvirt | ~950 MB | [Download qcow2](https://github.com/humber-horizons-limited/bsc-1000/releases/latest/download/bacsync-controller.qcow2) |
-| **Docker** | Raspberry Pi, Linux SBC, any Linux | `docker pull` | See [Docker instructions](#docker) |
+| **Docker** | Linux SBC, any Linux | `docker pull` | See [Docker instructions](#docker) |
 
 ## Quick Start
 
@@ -177,7 +180,7 @@ docker compose up -d
 
 The compose file includes commented-out sections for serial devices (Modbus RTU, MS/TP), GPIO, and SBC hardware — uncomment what you need.
 
-### ARM / Linux SBC (Linux SBC)
+### ARM / Linux SBC
 
 Use the ARM64 image:
 
@@ -225,7 +228,7 @@ The appliance obtains an IP address via **DHCP** automatically. If no DHCP serve
 | Platform | CPU | RAM | Storage |
 |----------|-----|-----|---------|
 | Virtual Appliance | 2 vCPU | 2 GB | 20 GB |
-| Linux SBC (RPi, BeagleBone, etc.) | 4-core ARM | 2 GB+ | 16 GB+ |
+| Linux SBC | 4-core ARM | 2 GB+ | 16 GB+ |
 | Docker (any Linux) | 1+ core | 512 MB+ | 5 GB |
 
 ## Editions
@@ -260,13 +263,13 @@ The BSC-1000 has been tested against a comprehensive conformance test suite cove
 
 - **228/228 tests passed** (0 failures, 0 skipped) across 4 test phases
 - Protocol Revision 22 (ASHRAE 135-2020)
-- 11 object types, 27 services
+- 12 object types, comprehensive BACnet service coverage
 - Segmentation tested with 1,040+ objects in single response
 - Who-Is flood test: 99&ndash;100% response rate under rapid-fire requests
 - Protocol fuzz testing: 15 malformed packet scenarios handled gracefully
 
 **Stress Testing:**
-- 20,000 objects on 1 GB RAM (99.99% success rate)
+- 30,000+ objects on modest RAM with high success rate
 - 100 concurrent control programs (mixed complexity)
 - 50 concurrent MCP sessions, 100% success, &lt;35ms response
 - Combined load: 1,500 objects + 30 programs + 6 users &mdash; 0 errors, P95 23ms
@@ -276,7 +279,7 @@ The BSC-1000 has been tested against a comprehensive conformance test suite cove
 - 465 objects and 36 programs per controller running continuously
 - MCP response stable at 3–5ms throughout entire run
 - Resource usage: ~1% CPU, ~49 MB RAM per controller
-- 94% data persistence after unexpected power loss (SIGKILL)
+- Verified data persistence after unexpected power loss
 
 **Security Audit (Penetration Test):**
 - 4-round penetration test covering HTTPS, MCP, TLS, cookies, authentication, headers, and BACnet/IP
@@ -317,18 +320,18 @@ sha256sum -c SHA256SUMS.txt
 Docker images are signed with [cosign](https://github.com/sigstore/cosign). To verify:
 
 ```bash
-cosign verify --key https://raw.githubusercontent.com/humber-horizons-limited/bsc-1000/main/cosign.pub \
+cosign verify --insecure-ignore-tlog \
+  --key https://raw.githubusercontent.com/humber-horizons-limited/bsc-1000/main/cosign.pub \
   ghcr.io/humber-horizons-limited/bsc-1000:latest        # x86_64
-cosign verify --key https://raw.githubusercontent.com/humber-horizons-limited/bsc-1000/main/cosign.pub \
+
+cosign verify --insecure-ignore-tlog \
+  --key https://raw.githubusercontent.com/humber-horizons-limited/bsc-1000/main/cosign.pub \
   ghcr.io/humber-horizons-limited/bsc-1000:latest-arm64   # ARM64
 ```
 
 ## Documentation
 
-- [Deployment Guide](#) — Installation, configuration, networking
-- [Operator Guide](#) — Web UI, SSH console, configuration reference
-- [HVAC Programming Guide](#) — Control program API, 18 HVAC classes, examples
-- [REST API Reference](#) — 35+ endpoints with request/response examples
+The full user guide ships inside the running controller at `https://<host-ip>/ui/docs`. It covers installation, the web UI, the SSH console, the BACnet object model, HVAC control programming, the REST API, and integration recipes for OPC UA, Modbus, MQTT, and BACnet/SC.
 
 ## Support
 

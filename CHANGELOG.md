@@ -6,21 +6,19 @@ This format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), an
 
 ---
 
-## [2.0.0] — 2026-06-XX (Unreleased)
+## [2.0.0] — 2026-06-03
 
 **Major release** spanning ~3 months of development since v1.0.0 (March 2026). The scope and breadth of changes — including a vendor ID change visible to BACnet networks and several breaking-shape persistence updates — warrant a major version bump.
-
-> **In progress.** Additional improvements to HHL remote support are landing before the v2.0.0 release. This CHANGELOG will be updated when those commit.
 
 ### Added
 
 - **BACnet/SC** (Secure Connect) end-to-end support with persistent device identity across restarts and full hub-and-Direct-Connect operation. (Professional)
 - **CAN bus protocol support** with a J1939 dashboard, protocol selector, and live tile results. (Engineering preview; hardware required.)
-- **App Builder — EtherNet/IP (CIP) driver**: tag access for Logix-family PLCs, file-element access for legacy SLC/PLC controllers, and generic CIP explicit messaging for instruments and drives. Auto-reconnect with connection management.
+- **App Builder — EtherNet/IP (CIP) driver**: tag access for modern PLCs, file-element access for legacy controllers, and generic CIP explicit messaging for instruments and drives. Auto-reconnect with connection management.
 - **App Builder — SNMP driver**: read SNMP data from UPSes, switches, and IT-room monitors. Supports SNMPv1, v2c, and v3 with authentication and privacy. Optional alarm-trap listener.
 - **BSC-IO firmware OTA (over-the-air) updates**: Web UI workflow for updating BSC-IO board firmware. Boards cannot be downgraded (firmware version is checked before applying). Reconnect is coordinated around the board reboot window.
-- **Graphics V2 — full canvas engine**: object-based canvas editor, animation primitives, push-based live updates, equipment widget palette, template gallery. Replaces the legacy graphics system.
-- **Graphics — isometric 3D mode**: dual-mode editor (2D flat / isometric), 314-icon SCADA library, drag/connector tools, BACnet object picker with live values, undo, keyboard shortcuts.
+- **Graphics V2 — full canvas engine**: object-based canvas editor, animation primitives, real-time live updates, equipment widget palette, template gallery. Replaces the legacy graphics system.
+- **Graphics — isometric 3D mode**: dual-mode editor (2D flat / isometric), extensive SCADA icon library, drag/connector tools, BACnet object picker with live values, undo, keyboard shortcuts.
 - **Graphics — custom symbol library**: customer upload of SVG symbols, import/export, preload engine.
 - **`/api/version` public identity endpoint**: returns version, model, vendor, vendor ID, BACnet protocol version + revision. No authentication required. Designed for asset inventory across a fleet of controllers.
 - **Field Mode** + first-boot / OTA workflow refinements for service technicians working on un-networked controllers.
@@ -28,7 +26,7 @@ This format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), an
 - **HHL Remote Support** (Professional): vendor-assisted troubleshooting is now available on request. Sessions require explicit customer approval each time; opt-in.
 - **Image signature verification** on the appliance update path: a tamper-proof signature check runs before any new image is applied. Verification key is bundled on the appliance and can be independently confirmed by the customer.
 - **Container hardening** updates applied to both appliance and customer Docker deployments.
-- **Structured View** BACnet object type — hierarchical grouping of related objects for tools like YABE / Niagara.
+- **Structured View** BACnet object type — hierarchical grouping of related objects for industry-standard BACnet browsing tools.
 
 ### Changed
 

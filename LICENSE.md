@@ -1,6 +1,6 @@
 # BSC-1000 Community Edition — Software License Terms
 
-**Effective date:** 2026-06-02
+**Effective date:** 2026-06-03
 **Licensor:** Humber Horizons Limited ("HHL"), Ontario, Canada
 
 These terms govern your use of the BSC-1000 BACnet Controller software in its
@@ -85,9 +85,8 @@ controller version and feature usage, and — only when the operator
 explicitly approves an active session — outbound reverse SSH tunnels for
 support purposes.
 
-You may disable these features by setting the corresponding environment
-variables to empty (`SUPPORT_COORD_URL=""`, `BSCIO_COORD_URL=""`, etc.).
-The Software remains fully functional with all outbound HHL connections
+You may disable these features from the controller's Settings page. The
+Software remains fully functional with all outbound HHL connections
 disabled.
 
 ## 8. Image signatures
@@ -104,7 +103,7 @@ trends, schedules, App Builder apps, graphic pages, users; alarm email;
 MQTT Bridge; Modbus TCP Server; read-write OPC UA Server; BACnet/SC;
 MS/TP; full SSH console; network diagnostics; multi-user RBAC; priority
 support). It requires a separate paid license, delivered as a machine-bound
-`.lic` file. Contact `license@bacsync.com` for terms and pricing.
+`.lic` file. Contact `info@humberhorizons.ca` for terms and pricing.
 
 The Professional Edition is governed by a separate written agreement
 between you and HHL. These Community Edition terms do not grant any
@@ -132,8 +131,7 @@ trademarks of Humber Horizons Limited.
 
 ## 13. Contact
 
-- Licensing inquiries: `license@bacsync.com`
-- General: `info@humberhorizons.ca`
+- Licensing and general inquiries: `info@humberhorizons.ca`
 - Website: `https://humberhorizons.ca`
 
 ---

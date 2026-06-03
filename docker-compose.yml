@@ -6,8 +6,8 @@
 #   2. docker compose up -d
 #   3. Open https://<host-ip> in your browser
 #
-# For Linux SBCs with physical I/O (Linux SBCs),
-# uncomment the cap_add, devices, and BOARD_MODEL sections below.
+# For Linux SBCs with physical I/O, uncomment the cap_add,
+# devices, and BOARD_MODEL sections below.
 
 services:
   bacsync-controller:
@@ -15,9 +15,6 @@ services:
     container_name: bacsync-controller
     restart: unless-stopped
     network_mode: host
-    # Prevent setuid/setgid binaries from elevating capabilities inside
-    # the container. Defense-in-depth against any future RCE bug —
-    # nothing the controller runs relies on setuid bits.
     security_opt:
       - no-new-privileges:true
     environment:
@@ -37,7 +34,7 @@ services:
       #- MSTP_SERIAL_PORT=/dev/ttyACM1
       #- MSTP_BAUDRATE=38400
       #- MSTP_MAC_ADDRESS=1
-      # SBC board model (auto-detected if omitted)
+      # SBC board model (auto-detected if omitted; set only to override)
       #- BOARD_MODEL=
     volumes:
       - controller-data:/app/data
